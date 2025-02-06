@@ -403,9 +403,13 @@ Give optional NEXT-P parameter to override value of
 
 (defun haskell-load-and-run (expr)
   "Load the current buffer and run EXPR, e.g. \"main\"."
-  (interactive (list (read-string "Run expression: "
-                                  (car haskell-load-and-run-expr-history)
-                                  'haskell-load-and-run-expr-history)))
+  (interactive (list (completing-read "Run expression: "
+                                      haskell-load-and-run-expr-history
+                                      nil  ; predicate
+                                      nil  ; require-match
+                                      nil  ; initial value
+                                      'haskell-load-and-run-expr-history)))
+
   (haskell-process-load-file)
   (haskell-interactive-mode-run-expr expr))
 
